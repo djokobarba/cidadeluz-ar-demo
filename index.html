@@ -3,29 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="theme-color" content="#0a0a0f" />
+  <meta name="theme-color" content="#111111" />
   <title>Cidade Luz JF — Catálogo Newline com AR</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #0a0a0f;
-      --bg-card: #12121a;
-      --bg-card-hover: #1a1a28;
-      --border: rgba(139, 92, 246, 0.15);
-      --border-hover: rgba(139, 92, 246, 0.4);
-      --purple: #8b5cf6;
-      --purple-light: #a78bfa;
-      --purple-glow: rgba(139, 92, 246, 0.25);
-      --text: #f1f0f5;
-      --text-muted: #8b8a9a;
-      --text-dim: #5a5970;
-      --white: #ffffff;
+      --amber: #D4860A;
+      --amber-light: #F5A623;
+      --amber-bg: #FFF8ED;
+      --dark: #111111;
+      --gray-900: #1A1A1A;
+      --gray-700: #444444;
+      --gray-400: #999999;
+      --gray-100: #F5F5F5;
+      --white: #FFFFFF;
       --radius: 12px;
       --radius-lg: 16px;
     }
@@ -33,9 +27,9 @@
     html { scroll-behavior: smooth; }
 
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: var(--bg);
-      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--white);
+      color: var(--dark);
       min-height: 100dvh;
       -webkit-font-smoothing: antialiased;
     }
@@ -45,619 +39,622 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(10, 10, 15, 0.92);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--border);
-      padding: 14px 20px;
+      background: var(--dark);
+      padding: 0 16px;
+      height: 56px;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 12px;
     }
 
-    .logo {
+    .header-left {
       display: flex;
       align-items: center;
       gap: 10px;
-      text-decoration: none;
+      flex: 1;
+      min-width: 0;
     }
 
     .logo-icon {
-      width: 34px;
-      height: 34px;
-      background: linear-gradient(135deg, var(--purple), #6d28d9);
-      border-radius: 9px;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: var(--amber);
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 0 16px var(--purple-glow);
+      flex-shrink: 0;
     }
 
     .logo-icon svg { width: 18px; height: 18px; fill: var(--white); }
 
     .logo-text {
-      color: var(--white);
-      font-size: 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .logo-name {
+      font-size: 14px;
       font-weight: 700;
-      letter-spacing: -0.3px;
+      color: var(--white);
+      line-height: 1;
+    }
+
+    .logo-sub {
+      font-size: 10px;
+      font-weight: 500;
+      color: var(--amber-light);
+      line-height: 1;
+      letter-spacing: 0.02em;
+    }
+
+    .btn-back {
+      display: none;
+      align-items: center;
+      gap: 6px;
+      background: none;
+      border: none;
+      color: var(--white);
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      padding: 6px 0;
+    }
+
+    .btn-back svg { width: 18px; height: 18px; stroke: currentColor; fill: none; }
+
+    .btn-cart {
+      background: none;
+      border: none;
+      color: var(--white);
+      cursor: pointer;
+      padding: 6px;
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+
+    .btn-cart svg { width: 22px; height: 22px; stroke: currentColor; fill: none; }
+
+    /* ---- View toggle ---- */
+    #view-list { display: block; }
+    #view-detail { display: none; }
+
+    /* ---- Hero / intro ---- */
+    .hero {
+      background: var(--amber-bg);
+      padding: 20px 16px 16px;
+      text-align: center;
+      border-bottom: 1px solid #f0d9b8;
+    }
+
+    .hero h1 {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--dark);
       line-height: 1.2;
     }
 
-    .logo-text span {
-      display: block;
-      font-size: 10px;
-      font-weight: 500;
-      color: var(--purple-light);
-      letter-spacing: 0.8px;
-      text-transform: uppercase;
-    }
-
-    .header-badge {
-      background: rgba(139, 92, 246, 0.12);
-      border: 1px solid var(--border);
-      color: var(--purple-light);
-      font-size: 11px;
-      font-weight: 600;
-      padding: 5px 10px;
-      border-radius: 20px;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-
-    .header-badge::before {
-      content: '';
-      width: 6px;
-      height: 6px;
-      background: var(--purple);
-      border-radius: 50%;
-      animation: pulse-dot 2s ease-in-out infinite;
-    }
-
-    @keyframes pulse-dot {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.4; }
-    }
-
-    /* ---- Breadcrumb / Back ---- */
-    .breadcrumb {
-      padding: 14px 20px;
+    .hero p {
+      margin-top: 6px;
       font-size: 13px;
-      color: var(--text-muted);
-      display: flex;
-      align-items: center;
-      gap: 6px;
+      color: var(--gray-700);
     }
 
-    .breadcrumb a {
-      color: var(--text-muted);
-      text-decoration: none;
-      transition: color 0.15s;
+    /* ---- Product grid ---- */
+    .grid-wrap {
+      padding: 16px;
     }
 
-    .breadcrumb a:hover { color: var(--purple-light); }
-    .breadcrumb .sep { color: var(--text-dim); }
-
-    .back-btn {
-      background: none;
-      border: none;
-      cursor: pointer;
-      color: var(--purple-light);
-      font-size: 14px;
-      font-weight: 600;
-      font-family: inherit;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      padding: 10px 20px;
-      transition: opacity 0.15s;
-    }
-
-    .back-btn:hover { opacity: 0.75; }
-    .back-btn svg { width: 16px; height: 16px; }
-
-    /* ---- Views ---- */
-    #view-list, #view-detail, #view-ar { display: none; }
-    #view-list.active, #view-detail.active, #view-ar.active { display: block; }
-
-    /* ---- List View ---- */
-    .list-header {
-      padding: 24px 20px 16px;
-    }
-
-    .list-title {
-      font-size: 22px;
-      font-weight: 800;
-      letter-spacing: -0.5px;
-      color: var(--white);
-      margin-bottom: 6px;
-    }
-
-    .list-subtitle {
-      font-size: 13px;
-      color: var(--text-muted);
-    }
-
-    .product-grid {
+    .grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(2, 1fr);
       gap: 12px;
-      padding: 0 16px 100px;
     }
 
-    @media (min-width: 768px) {
-      .product-grid {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 16px;
-        padding: 0 20px 100px;
-      }
+    @media (min-width: 640px) {
+      .grid { grid-template-columns: repeat(3, 1fr); }
     }
 
-    @media (min-width: 1024px) {
-      body { max-width: 1100px; margin: 0 auto; }
+    @media (min-width: 900px) {
+      .grid { grid-template-columns: repeat(4, 1fr); }
     }
 
-    .product-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
+    /* ---- Product card ---- */
+    .card {
+      background: var(--white);
+      border: 1px solid #e8e8e8;
       border-radius: var(--radius-lg);
       overflow: hidden;
       cursor: pointer;
-      transition: border-color 0.2s, transform 0.15s, box-shadow 0.2s;
-      -webkit-tap-highlight-color: transparent;
+      transition: box-shadow 0.2s, transform 0.15s;
     }
 
-    .product-card:hover {
-      border-color: var(--border-hover);
+    .card:hover {
+      box-shadow: 0 8px 24px rgba(212,134,10,0.15);
       transform: translateY(-2px);
-      box-shadow: 0 8px 32px rgba(139, 92, 246, 0.12);
     }
 
-    .product-card:active { transform: scale(0.98); }
+    .card:active { transform: translateY(0); }
 
     .card-img {
-      width: 100%;
       aspect-ratio: 1 / 1;
-      object-fit: cover;
-      background: #1a1a28;
-      display: block;
+      background: var(--gray-100);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 8px;
     }
 
     .card-body {
-      padding: 12px;
+      padding: 10px 12px 12px;
+    }
+
+    .card-category {
+      font-size: 10px;
+      font-weight: 500;
+      color: var(--gray-400);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 3px;
     }
 
     .card-name {
       font-size: 13px;
       font-weight: 700;
-      color: var(--white);
+      color: var(--dark);
       line-height: 1.3;
-      margin-bottom: 4px;
+      margin-bottom: 6px;
     }
 
-    .card-desc {
-      font-size: 11px;
-      color: var(--text-muted);
-      line-height: 1.4;
-      margin-bottom: 10px;
-    }
-
-    .card-btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 5px;
-      width: 100%;
-      padding: 9px 10px;
-      background: rgba(139, 92, 246, 0.1);
-      border: 1px solid rgba(139, 92, 246, 0.3);
-      border-radius: 8px;
-      color: var(--purple-light);
-      font-size: 12px;
-      font-weight: 600;
-      font-family: inherit;
-      cursor: pointer;
-      transition: background 0.15s, border-color 0.15s;
-    }
-
-    .card-btn:hover {
-      background: rgba(139, 92, 246, 0.2);
-      border-color: var(--purple);
-    }
-
-    .card-btn svg { width: 12px; height: 12px; }
-
-    /* ---- Detail View ---- */
-    .detail-img-wrap {
-      width: 100%;
-      aspect-ratio: 4 / 3;
-      background: #12121a;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .detail-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    .detail-img-badge {
-      position: absolute;
-      top: 12px;
-      right: 12px;
-      background: rgba(139, 92, 246, 0.85);
-      backdrop-filter: blur(8px);
-      color: var(--white);
-      font-size: 10px;
-      font-weight: 700;
-      padding: 4px 10px;
-      border-radius: 20px;
-      letter-spacing: 0.5px;
-    }
-
-    .detail-body {
-      padding: 20px;
-    }
-
-    .detail-name {
-      font-size: 24px;
+    .card-price {
+      font-size: 15px;
       font-weight: 800;
-      letter-spacing: -0.5px;
-      color: var(--white);
-      margin-bottom: 10px;
-      line-height: 1.2;
-    }
-
-    .detail-specs-label {
-      font-size: 11px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: var(--text-dim);
+      color: var(--amber);
       margin-bottom: 8px;
     }
 
-    .detail-specs {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 14px 16px;
-      margin-bottom: 20px;
+    .btn-ver {
+      display: block;
+      width: 100%;
+      padding: 8px;
+      background: var(--amber);
+      color: var(--white);
+      font-size: 12px;
+      font-weight: 700;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      text-align: center;
+      transition: background 0.15s;
+      letter-spacing: 0.02em;
     }
 
-    .spec-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
+    .btn-ver:hover { background: #b87009; }
+
+    /* ---- Detail View ---- */
+    #view-detail {
+      padding-bottom: 96px;
     }
 
-    .spec-tag {
-      background: rgba(139, 92, 246, 0.08);
-      border: 1px solid rgba(139, 92, 246, 0.2);
-      color: var(--purple-light);
-      font-size: 11px;
-      font-weight: 600;
-      padding: 4px 10px;
-      border-radius: 6px;
-    }
-
-    .ar-cta-section {
-      background: linear-gradient(135deg, rgba(139, 92, 246, 0.08), rgba(109, 40, 217, 0.05));
-      border: 1px solid rgba(139, 92, 246, 0.25);
-      border-radius: var(--radius-lg);
-      padding: 16px;
+    .detail-img {
+      aspect-ratio: 4 / 3;
+      background: var(--gray-100);
       display: flex;
       align-items: center;
-      gap: 14px;
-      margin-bottom: 20px;
+      justify-content: center;
+      overflow: hidden;
     }
 
-    .ar-cta-icon {
-      width: 44px;
-      height: 44px;
-      background: linear-gradient(135deg, var(--purple), #6d28d9);
-      border-radius: 12px;
+    .detail-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 12px;
+    }
+
+    .detail-body {
+      padding: 16px 16px 0;
+    }
+
+    .detail-category {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--amber-light);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 6px;
+    }
+
+    .detail-name {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--dark);
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+
+    .stars {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+
+    .stars-text { color: var(--amber); font-size: 16px; letter-spacing: 2px; }
+    .stars-score { font-size: 13px; font-weight: 700; color: var(--dark); }
+    .stars-count { font-size: 12px; color: var(--gray-400); }
+
+    /* Price block */
+    .price-block {
+      background: var(--amber-bg);
+      border: 1px solid #f0d9b8;
+      border-radius: var(--radius);
+      padding: 14px;
+      margin-bottom: 16px;
+    }
+
+    .price-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 4px;
+      flex-wrap: wrap;
+    }
+
+    .price-current {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--amber);
+      line-height: 1;
+    }
+
+    .price-old {
+      font-size: 14px;
+      color: var(--gray-400);
+      text-decoration: line-through;
+    }
+
+    .price-badge {
+      background: #22c55e;
+      color: var(--white);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 20px;
+    }
+
+    .price-installment {
+      font-size: 13px;
+      color: var(--gray-700);
+    }
+
+    /* AR section */
+    .ar-card {
+      background: var(--dark);
+      border-radius: var(--radius);
+      padding: 16px;
+      margin-bottom: 16px;
+      color: var(--white);
+    }
+
+    .ar-card-top {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .ar-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: var(--amber);
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      box-shadow: 0 4px 16px var(--purple-glow);
     }
 
-    .ar-cta-icon svg { width: 22px; height: 22px; fill: var(--white); }
+    .ar-icon svg { width: 22px; height: 22px; fill: var(--white); }
 
-    .ar-cta-text h3 {
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--white);
-      margin-bottom: 3px;
-    }
-
-    .ar-cta-text p {
-      font-size: 12px;
-      color: var(--text-muted);
-      line-height: 1.4;
-    }
-
-    .btn-ar-main {
-      width: 100%;
-      padding: 16px 20px;
-      background: linear-gradient(135deg, var(--purple), #6d28d9);
-      border: none;
-      border-radius: var(--radius);
-      color: var(--white);
-      font-size: 16px;
-      font-weight: 700;
-      font-family: inherit;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      box-shadow: 0 4px 24px var(--purple-glow);
-      transition: opacity 0.15s, transform 0.1s;
-      letter-spacing: -0.2px;
-      -webkit-tap-highlight-color: transparent;
-      animation: pulse-purple 2.5s ease-in-out infinite;
-    }
-
-    .btn-ar-main:active { transform: scale(0.98); opacity: 0.9; }
-    .btn-ar-main svg { width: 20px; height: 20px; fill: var(--white); }
-
-    @keyframes pulse-purple {
-      0%, 100% { box-shadow: 0 4px 24px rgba(139, 92, 246, 0.25); }
-      50% { box-shadow: 0 4px 40px rgba(139, 92, 246, 0.5); }
-    }
-
-    /* ---- AR View ---- */
-    .ar-view-wrap {
-      display: flex;
-      flex-direction: column;
-      height: calc(100dvh - 57px);
-    }
-
-    .ar-topbar {
-      padding: 10px 16px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .ar-product-name {
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--white);
-    }
-
-    .ar-hint {
-      font-size: 11px;
-      color: var(--text-muted);
-    }
+    .ar-card-title { font-size: 15px; font-weight: 700; }
+    .ar-card-desc { font-size: 12px; color: rgba(255,255,255,0.65); margin-top: 2px; }
 
     model-viewer {
       width: 100%;
-      flex: 1;
-      background: #0d0d14;
-      --poster-color: #0d0d14;
-    }
-
-    .ar-footer-bar {
-      padding: 14px 16px env(safe-area-inset-bottom, 14px);
-      border-top: 1px solid var(--border);
-      display: flex;
-      gap: 10px;
-    }
-
-    .btn-activate-ar {
-      flex: 1;
-      padding: 14px;
-      background: linear-gradient(135deg, var(--purple), #6d28d9);
-      border: none;
+      aspect-ratio: 1 / 1;
+      background: var(--gray-100);
       border-radius: var(--radius);
-      color: var(--white);
-      font-size: 15px;
-      font-weight: 700;
-      font-family: inherit;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      box-shadow: 0 4px 20px var(--purple-glow);
-      -webkit-tap-highlight-color: transparent;
-      animation: pulse-purple 2.5s ease-in-out infinite;
+      margin-bottom: 10px;
+      display: none;
     }
 
-    .btn-activate-ar svg { width: 18px; height: 18px; fill: var(--white); }
+    model-viewer.visible { display: block; }
 
-    /* ---- AR Not Supported Modal ---- */
-    .ar-modal-overlay {
+    .btn-ar {
+      display: block;
+      width: 100%;
+      padding: 11px;
+      background: var(--amber);
+      color: var(--white);
+      font-size: 14px;
+      font-weight: 700;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      text-align: center;
+      transition: background 0.15s;
+    }
+
+    .btn-ar:hover { background: #b87009; }
+
+    /* AR desktop modal */
+    .ar-modal {
       display: none;
       position: fixed;
       inset: 0;
-      z-index: 300;
-      background: rgba(0, 0, 0, 0.85);
+      background: rgba(0,0,0,0.7);
+      z-index: 200;
       align-items: center;
       justify-content: center;
-      padding: 24px;
+      padding: 20px;
     }
 
-    .ar-modal-overlay.active { display: flex; }
+    .ar-modal.open { display: flex; }
 
-    .ar-modal {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
+    .ar-modal-box {
+      background: var(--white);
       border-radius: var(--radius-lg);
       padding: 28px 24px;
-      text-align: center;
-      max-width: 340px;
+      max-width: 360px;
       width: 100%;
+      text-align: center;
     }
 
-    .ar-modal-icon { font-size: 40px; margin-bottom: 14px; }
-    .ar-modal h3 { font-size: 18px; font-weight: 700; color: var(--white); margin-bottom: 8px; }
-    .ar-modal p { font-size: 14px; color: var(--text-muted); line-height: 1.55; margin-bottom: 20px; }
+    .ar-modal-box h3 { font-size: 18px; font-weight: 800; margin-bottom: 8px; }
+    .ar-modal-box p { font-size: 14px; color: var(--gray-700); margin-bottom: 20px; line-height: 1.5; }
 
     .btn-modal-close {
-      width: 100%;
-      padding: 14px;
-      background: var(--purple);
+      padding: 10px 24px;
+      background: var(--dark);
       color: var(--white);
+      font-size: 14px;
+      font-weight: 600;
       border: none;
-      border-radius: var(--radius);
-      font-size: 15px;
-      font-weight: 700;
-      font-family: inherit;
+      border-radius: 10px;
       cursor: pointer;
     }
 
-    /* ---- Footer ---- */
-    footer {
-      padding: 28px 20px env(safe-area-inset-bottom, 20px);
-      background: var(--bg-card);
-      border-top: 1px solid var(--border);
-      text-align: center;
+    /* Specs */
+    .section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--dark);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 10px;
     }
 
-    .footer-logo {
-      font-size: 15px;
-      font-weight: 800;
-      color: var(--white);
-      letter-spacing: -0.3px;
-      margin-bottom: 4px;
+    .specs-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 16px;
     }
 
-    .footer-note {
-      font-size: 12px;
-      color: var(--text-dim);
+    .spec-item {
+      background: var(--gray-100);
+      border-radius: 8px;
+      padding: 10px 12px;
     }
 
-    /* ---- Sticky CTA in list ---- */
-    .list-sticky-bar {
+    .spec-label { font-size: 10px; color: var(--gray-400); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 2px; }
+    .spec-value { font-size: 13px; font-weight: 700; color: var(--dark); }
+
+    /* Delivery */
+    .delivery-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .delivery-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--gray-700);
+    }
+
+    .delivery-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: var(--gray-100);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 16px;
+    }
+
+    /* Trust badges */
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--gray-100);
+      border-radius: 8px;
+      padding: 10px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--gray-700);
+    }
+
+    .trust-item span { font-size: 18px; }
+
+    /* Sticky CTA */
+    .sticky-cta {
       position: fixed;
       bottom: 0;
       left: 0;
       right: 0;
-      z-index: 50;
-      padding: 12px 20px env(safe-area-inset-bottom, 12px);
-      background: rgba(10, 10, 15, 0.92);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-top: 1px solid var(--border);
+      z-index: 100;
+      background: var(--white);
+      border-top: 1px solid #e8e8e8;
+      padding: 10px 16px;
+      padding-bottom: calc(10px + env(safe-area-inset-bottom));
+      display: none;
+      gap: 10px;
+    }
+
+    .sticky-cta.visible { display: flex; }
+
+    .sticky-btn-ar {
+      padding: 13px 16px;
+      background: var(--dark);
+      color: var(--white);
+      font-size: 13px;
+      font-weight: 700;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: background 0.15s;
+    }
+
+    .sticky-btn-ar:hover { background: #333; }
+
+    .sticky-btn-buy {
+      flex: 1;
+      padding: 13px;
+      background: var(--amber);
+      color: var(--white);
+      font-size: 14px;
+      font-weight: 700;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .sticky-btn-buy:hover { background: #b87009; }
+
+    /* Footer */
+    footer {
+      background: var(--amber);
+      color: var(--white);
       text-align: center;
-    }
-
-    .list-sticky-bar p {
+      padding: 20px 16px;
       font-size: 12px;
-      color: var(--text-muted);
+      line-height: 1.7;
+      font-weight: 500;
     }
 
-    .list-sticky-bar strong {
-      color: var(--purple-light);
-    }
+    footer strong { display: block; font-size: 14px; font-weight: 800; margin-bottom: 2px; }
 
-    /* Tablet+ */
-    @media (min-width: 600px) {
-      .product-grid { padding: 0 20px 100px; }
+    /* Dividers */
+    .section-divider {
+      height: 1px;
+      background: #e8e8e8;
+      margin: 0 0 16px;
     }
   </style>
 </head>
 <body>
 
-  <!-- Header -->
-  <header>
-    <a href="#" class="logo" onclick="showList(); return false;">
-      <div class="logo-icon">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 2C8.13 2 5 5.13 5 9c0 2.74 1.54 5.13 3.82 6.39L9 17h6l.18-1.61C17.46 14.13 19 11.74 19 9c0-3.87-3.13-7-7-7zm-1 14v1h2v-1h-2zm1-12c-2.76 0-5 2.24-5 5h2c0-1.65 1.35-3 3-3V4z"/>
-        </svg>
-      </div>
-      <div class="logo-text">
-        Cidade Luz JF
-        <span>Revendedora Newline</span>
-      </div>
-    </a>
-    <div class="header-badge">AR 3D</div>
-  </header>
-
-  <!-- ============================================================ -->
-  <!-- VIEW: LIST -->
-  <!-- ============================================================ -->
-  <div id="view-list" class="active">
-    <div class="list-header">
-      <h1 class="list-title">Linha Newline</h1>
-      <p class="list-subtitle">7 produtos — toque para ver em realidade aumentada</p>
-    </div>
-
-    <div class="product-grid" id="product-grid">
-      <!-- Rendered by JS -->
-    </div>
-
-    <footer>
-      <div class="footer-logo">Cidade Luz JF</div>
-      <div class="footer-note">Powered by Cidade Luz JF · Produtos Newline</div>
-    </footer>
-
-    <div class="list-sticky-bar">
-      <p>Toque num produto e clique <strong>"Ver no ambiente 📱"</strong> para AR</p>
-    </div>
-  </div>
-
-  <!-- ============================================================ -->
-  <!-- VIEW: DETAIL -->
-  <!-- ============================================================ -->
-  <div id="view-detail">
-    <button class="back-btn" onclick="showList()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
-      Voltar ao catálogo
+<!-- Header -->
+<header>
+  <div class="header-left">
+    <button class="btn-back" id="btn-back" onclick="showList()">
+      <svg viewBox="0 0 24 24" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+      Catálogo
     </button>
-
-    <div class="detail-img-wrap">
-      <img id="detail-img" class="detail-img" src="" alt="" />
-      <span class="detail-img-badge">Newline</span>
+    <div class="logo-icon" id="header-logo">
+      <svg viewBox="0 0 24 24"><path d="M12 2L8 7H4l2 10h12L20 7h-4L12 2zM9 11h6v2H9v-2z"/></svg>
     </div>
-
-    <div class="detail-body">
-      <h1 id="detail-name" class="detail-name"></h1>
-
-      <p class="detail-specs-label">Especificações técnicas</p>
-      <div class="detail-specs">
-        <div class="spec-tags" id="detail-spec-tags"></div>
-      </div>
-
-      <div class="ar-cta-section">
-        <div class="ar-cta-icon">
-          <svg viewBox="0 0 24 24"><path d="M3 7V4.5C3 3.12 4.12 2 5.5 2H8v2H5.5a.5.5 0 00-.5.5V7H3zm13-5h2.5C19.88 2 21 3.12 21 4.5V7h-2V4.5a.5.5 0 00-.5-.5H16V2zM3 17v2.5C3 20.88 4.12 22 5.5 22H8v-2H5.5a.5.5 0 01-.5-.5V17H3zm13 3v2h2.5c1.38 0 2.5-1.12 2.5-2.5V17h-2v2.5a.5.5 0 01-.5.5H16zM12 9l-4 4h3v4h2v-4h3l-4-4z"/></svg>
-        </div>
-        <div class="ar-cta-text">
-          <h3>Veja no seu ambiente real</h3>
-          <p>Aponte a câmera e veja a luminária em escala real no seu espaço.</p>
-        </div>
-      </div>
-
-      <button class="btn-ar-main" id="btn-open-ar">
-        <svg viewBox="0 0 24 24"><path d="M3 7V4.5C3 3.12 4.12 2 5.5 2H8v2H5.5a.5.5 0 00-.5.5V7H3zm13-5h2.5C19.88 2 21 3.12 21 4.5V7h-2V4.5a.5.5 0 00-.5-.5H16V2zM3 17v2.5C3 20.88 4.12 22 5.5 22H8v-2H5.5a.5.5 0 01-.5-.5V17H3zm13 3v2h2.5c1.38 0 2.5-1.12 2.5-2.5V17h-2v2.5a.5.5 0 01-.5.5H16zM12 9l-4 4h3v4h2v-4h3l-4-4z"/></svg>
-        Ver no ambiente 📱
-      </button>
+    <div class="logo-text">
+      <span class="logo-name">Cidade Luz JF</span>
+      <span class="logo-sub">Revendedora Oficial Newline</span>
     </div>
   </div>
+  <button class="btn-cart">
+    <svg viewBox="0 0 24 24" stroke-width="1.8"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+  </button>
+</header>
 
-  <!-- ============================================================ -->
-  <!-- VIEW: AR / MODEL VIEWER -->
-  <!-- ============================================================ -->
-  <div id="view-ar">
-    <div class="ar-view-wrap">
-      <div class="ar-topbar">
-        <button class="back-btn" style="padding:0;" onclick="showDetail(currentProductId)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16"><polyline points="15 18 9 12 15 6"/></svg>
-          Voltar
-        </button>
+<!-- LIST VIEW -->
+<div id="view-list">
+  <div class="hero">
+    <h1>Iluminação de Luxo<br>para o seu Espaço</h1>
+    <p>Veja cada produto no seu ambiente antes de comprar</p>
+  </div>
+
+  <div class="grid-wrap">
+    <div class="grid" id="product-grid"></div>
+  </div>
+
+  <footer>
+    <strong>Cidade Luz JF</strong>
+    Transformamos luz em atmosfera de luxo<br>
+    @cidadeluz.jf · Juiz de Fora, MG
+  </footer>
+</div>
+
+<!-- DETAIL VIEW -->
+<div id="view-detail">
+  <div class="detail-img">
+    <img id="d-img" src="" alt="" />
+  </div>
+
+  <div class="detail-body">
+    <p class="detail-category" id="d-category"></p>
+    <h1 class="detail-name" id="d-name"></h1>
+
+    <div class="stars">
+      <span class="stars-text">★★★★★</span>
+      <span class="stars-score">4,9</span>
+      <span class="stars-count">(48 avaliações)</span>
+    </div>
+
+    <!-- Price block -->
+    <div class="price-block">
+      <div class="price-row">
+        <span class="price-current" id="d-price"></span>
+        <span class="price-old" id="d-price-old"></span>
+        <span class="price-badge" id="d-badge"></span>
+      </div>
+      <div class="price-installment" id="d-installment"></div>
+    </div>
+
+    <!-- AR section -->
+    <div class="ar-card">
+      <div class="ar-card-top">
+        <div class="ar-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
         <div>
-          <div id="ar-product-name" class="ar-product-name"></div>
-          <div class="ar-hint">Gire e amplie o modelo</div>
+          <div class="ar-card-title">Veja no seu ambiente</div>
+          <div class="ar-card-desc" id="d-ar-desc"></div>
         </div>
       </div>
 
@@ -670,214 +667,265 @@
         touch-action="pan-y"
         auto-rotate
         loading="eager"
-        shadow-intensity="1"
-        exposure="0.95"
-      >
-        <button slot="ar-button" class="btn-activate-ar" style="position:absolute;bottom:80px;left:50%;transform:translateX(-50%);width:calc(100% - 32px);">
-          <svg viewBox="0 0 24 24"><path d="M3 7V4.5C3 3.12 4.12 2 5.5 2H8v2H5.5a.5.5 0 00-.5.5V7H3zm13-5h2.5C19.88 2 21 3.12 21 4.5V7h-2V4.5a.5.5 0 00-.5-.5H16V2zM3 17v2.5C3 20.88 4.12 22 5.5 22H8v-2H5.5a.5.5 0 01-.5-.5V17H3zm13 3v2h2.5c1.38 0 2.5-1.12 2.5-2.5V17h-2v2.5a.5.5 0 01-.5.5H16zM12 9l-4 4h3v4h2v-4h3l-4-4z"/></svg>
-          Ver no ambiente 📱
-        </button>
-      </model-viewer>
+      ></model-viewer>
 
-      <div class="ar-footer-bar">
-        <button class="btn-activate-ar" onclick="triggerAR()">
-          <svg viewBox="0 0 24 24"><path d="M3 7V4.5C3 3.12 4.12 2 5.5 2H8v2H5.5a.5.5 0 00-.5.5V7H3zm13-5h2.5C19.88 2 21 3.12 21 4.5V7h-2V4.5a.5.5 0 00-.5-.5H16V2zM3 17v2.5C3 20.88 4.12 22 5.5 22H8v-2H5.5a.5.5 0 01-.5-.5V17H3zm13 3v2h2.5c1.38 0 2.5-1.12 2.5-2.5V17h-2v2.5a.5.5 0 01-.5.5H16zM12 9l-4 4h3v4h2v-4h3l-4-4z"/></svg>
-          Ativar Realidade Aumentada
-        </button>
+      <button class="btn-ar" onclick="activateAR()">📐 Ver no ambiente</button>
+    </div>
+
+    <!-- Specs -->
+    <p class="section-title">Especificações</p>
+    <div class="specs-grid" id="d-specs"></div>
+
+    <div class="section-divider"></div>
+
+    <!-- Delivery -->
+    <p class="section-title">Entrega e devolução</p>
+    <div class="delivery-list">
+      <div class="delivery-item"><div class="delivery-icon">🚚</div><span><strong>Frete grátis</strong> em Juiz de Fora</span></div>
+      <div class="delivery-item"><div class="delivery-icon">🏪</div><span><strong>Retirada em loja</strong> disponível</span></div>
+      <div class="delivery-item"><div class="delivery-icon">🔄</div><span><strong>Devolução em 30 dias</strong> sem custo</span></div>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <!-- Trust badges -->
+    <p class="section-title">Por que comprar aqui</p>
+    <div class="trust-grid">
+      <div class="trust-item"><span>🔒</span> Compra segura</div>
+      <div class="trust-item"><span>💳</span> Pix &amp; Cartão</div>
+      <div class="trust-item"><span>📦</span> Pronta entrega</div>
+      <div class="trust-item"><span>💬</span> Suporte WhatsApp</div>
+    </div>
+  </div>
+
+  <footer>
+    <strong>Cidade Luz JF</strong>
+    Transformamos luz em atmosfera de luxo<br>
+    @cidadeluz.jf · Juiz de Fora, MG
+  </footer>
+</div>
+
+<!-- Sticky CTA (only on detail) -->
+<div class="sticky-cta" id="sticky-cta">
+  <button class="sticky-btn-ar" onclick="activateAR()">📐 AR</button>
+  <button class="sticky-btn-buy" onclick="handleBuy()">Comprar</button>
+</div>
+
+<!-- AR desktop modal -->
+<div class="ar-modal" id="ar-modal">
+  <div class="ar-modal-box">
+    <h3>Abra no celular 📱</h3>
+    <p>A visualização em Realidade Aumentada funciona no celular.<br>Aponte a câmera para o QR Code ou acesse <strong>cidadeluz-ar.vercel.app</strong> pelo seu smartphone.</p>
+    <button class="btn-modal-close" onclick="closeARModal()">Entendi</button>
+  </div>
+</div>
+
+<script>
+  const products = [
+    {
+      id: 'sistema-fit10',
+      name: 'Sistema FIT10 Linear',
+      category: 'Trilhos · Linha Modular',
+      desc: 'Trilho modular de 0,5m a 3m, até 3 circuitos independentes dimerizáveis',
+      price: 'R$ 1.290,00',
+      priceOld: 'R$ 1.490,00',
+      installment: '12x de R$ 117,27',
+      specs: [['Tensão','24V'],['Comprimento','0,5m a 3m'],['IRC','>90'],['SDCM','<3'],['Dim','DUAL DIM']],
+      image: './images/sistema-fit10.jpg',
+      model: './luminaria.glb',
+      scale: '0.5 0.5 0.5',
+      cameraOrbit: '0deg 70deg 2m',
+      arDesc: 'Veja o sistema de trilho no seu teto antes de comprar'
+    },
+    {
+      id: 'pendente-fit10',
+      name: 'Pendente FIT10',
+      category: 'Pendentes · Linha FIT10',
+      desc: 'Luminária pendente linear com luz direta e indireta, 1,2m a 1,5m',
+      price: 'R$ 890,00',
+      priceOld: 'R$ 1.050,00',
+      installment: '12x de R$ 80,99',
+      specs: [['Tensão','127-220V'],['Potência','35W-54W'],['IRC','>90'],['Comprimento','1200-1500mm'],['IP','IP20']],
+      image: './images/pendente-fit10.jpg',
+      model: './luminaria.glb',
+      scale: '0.4 0.4 0.4',
+      cameraOrbit: '45deg 60deg 1.5m',
+      arDesc: 'Veja o pendente no seu ambiente antes de comprar'
+    },
+    {
+      id: 'pendente-fit10-couro',
+      name: 'Pendente FIT10 Couro',
+      category: 'Pendentes · Linha FIT10',
+      desc: 'Pendente premium com alças em couro marrom havana, luz direta e indireta',
+      price: 'R$ 1.190,00',
+      priceOld: 'R$ 1.390,00',
+      installment: '12x de R$ 108,26',
+      specs: [['Tensão','127-220V'],['Potência','32W-54W'],['Couro','Marrom Havana'],['IRC','>90'],['IP','IP20']],
+      image: './images/pendente-fit10-couro.jpg',
+      model: './luminaria.glb',
+      scale: '0.4 0.4 0.4',
+      cameraOrbit: '45deg 60deg 1.5m',
+      arDesc: 'Veja o pendente no seu espaço antes de comprar'
+    },
+    {
+      id: 'arandela-fit10',
+      name: 'Arandela FIT10',
+      category: 'Arandelas · Linha FIT10',
+      desc: 'Luminária de parede linear, delicada e expressiva, 613mm a 1531mm',
+      price: 'R$ 690,00',
+      priceOld: 'R$ 820,00',
+      installment: '12x de R$ 62,77',
+      specs: [['Tensão','127-220V'],['Potência','12W-40W'],['IRC','>90'],['Comprimento','613-1531mm'],['IP','IP20']],
+      image: './images/arandela-fit10.jpg',
+      model: './luminaria.glb',
+      scale: '0.2 0.2 0.2',
+      cameraOrbit: '0deg 80deg 1m',
+      arDesc: 'Veja a arandela na sua parede antes de comprar'
+    },
+    {
+      id: 'embutido-newpixel',
+      name: 'Embutido NewPixel',
+      category: 'Embutidos · Linha NewPixel',
+      desc: 'Spot compacto 1 a 3 focos, honeycomb antiofuscante, direcionável 180°',
+      price: 'R$ 290,00',
+      priceOld: 'R$ 350,00',
+      installment: '12x de R$ 26,39',
+      specs: [['Tensão','127-220V'],['Potência','4W-12W'],['IRC','>90'],['UGR','<13'],['Focos','1, 2 ou 3']],
+      image: './images/embutido-newpixel.jpg',
+      model: './embutido.glb',
+      scale: '0.1 0.1 0.1',
+      cameraOrbit: '0deg 60deg 0.8m',
+      arDesc: 'Veja o spot embutido no seu teto antes de comprar'
+    },
+    {
+      id: 'embutido-cross',
+      name: 'Embutido Cross',
+      category: 'Embutidos · Linha Cross',
+      desc: 'Antiofuscamento extremo UGR<5 com facho cruzado, iluminação precisa e invisível',
+      price: 'R$ 390,00',
+      priceOld: 'R$ 460,00',
+      installment: '12x de R$ 35,49',
+      specs: [['Tensão','127-220V'],['Potência','5W-12W'],['UGR','<5'],['IRC','>90'],['Facho','36°']],
+      image: './images/embutido-cross.jpg',
+      model: './embutido.glb',
+      scale: '0.1 0.1 0.1',
+      cameraOrbit: '0deg 60deg 0.8m',
+      arDesc: 'Veja o embutido no seu teto antes de comprar'
+    },
+    {
+      id: 'embutido-comfort',
+      name: 'Embutido Comfort',
+      category: 'Embutidos · Linha Comfort',
+      desc: 'IP44 para banheiros e áreas cobertas, lente ultra recuada',
+      price: 'R$ 340,00',
+      priceOld: 'R$ 410,00',
+      installment: '12x de R$ 30,94',
+      specs: [['Tensão','127-220V'],['Potência','7W-15W'],['IRC','>90'],['IP','IP44'],['UGR','<13']],
+      image: './images/embutido-comfort.jpg',
+      model: './embutido.glb',
+      scale: '0.1 0.1 0.1',
+      cameraOrbit: '0deg 60deg 0.8m',
+      arDesc: 'Veja o embutido no seu banheiro antes de comprar'
+    }
+  ];
+
+  let currentProduct = null;
+
+  function calcDiscount(price, old) {
+    const p = parseFloat(price.replace(/[^0-9,]/g,'').replace(',','.'));
+    const o = parseFloat(old.replace(/[^0-9,]/g,'').replace(',','.'));
+    if (!p || !o) return '';
+    return Math.round((1 - p/o) * 100) + '% OFF';
+  }
+
+  function buildGrid() {
+    const grid = document.getElementById('product-grid');
+    grid.innerHTML = products.map(p => `
+      <div class="card" onclick="showDetail('${p.id}')">
+        <div class="card-img">
+          <img src="${p.image}" alt="${p.name}" loading="lazy" />
+        </div>
+        <div class="card-body">
+          <div class="card-category">${p.category.split('·')[0].trim()}</div>
+          <div class="card-name">${p.name}</div>
+          <div class="card-price">${p.price}</div>
+          <button class="btn-ver">Ver →</button>
+        </div>
       </div>
-    </div>
-  </div>
+    `).join('');
+  }
 
-  <!-- AR Not Supported Modal -->
-  <div class="ar-modal-overlay" id="arModal">
-    <div class="ar-modal">
-      <div class="ar-modal-icon">📱</div>
-      <h3>AR disponível no celular</h3>
-      <p>Para ver a luminária no seu ambiente, acesse essa página no seu iPhone ou Android com Chrome/Safari.</p>
-      <button class="btn-modal-close" onclick="closeArModal()">Entendi</button>
-    </div>
-  </div>
+  function showDetail(id) {
+    const p = products.find(x => x.id === id);
+    if (!p) return;
+    currentProduct = p;
 
-  <script>
-    // ── Product data ──────────────────────────────────────────────
-    const products = [
-      {
-        id: 'sistema-fit10',
-        name: 'Sistema FIT10 Linear',
-        desc: 'Trilho modular de 0,5m a 3m, até 3 circuitos independentes',
-        specs: 'Tensão 24V | IRC>90 | SDCM<3 | Dimmerizável DUAL DIM',
-        image: './images/sistema-fit10.jpg',
-        model: './luminaria.glb',
-        scale: '0.3 0.3 0.3',
-        cameraOrbit: '0deg 70deg 1.5m'
-      },
-      {
-        id: 'pendente-fit10',
-        name: 'Pendente FIT10',
-        desc: 'Luminária pendente linear, luz direta e indireta',
-        specs: 'Bivolt 127-220V | 35W-54W | IRC>90 | 1200-1500mm',
-        image: './images/pendente-fit10.jpg',
-        model: './luminaria.glb',
-        scale: '0.4 0.4 0.4',
-        cameraOrbit: '45deg 60deg 1.5m'
-      },
-      {
-        id: 'pendente-fit10-couro',
-        name: 'Pendente FIT10 Couro',
-        desc: 'Pendente com alças em couro marrom havana',
-        specs: 'Bivolt 127-220V | 32W-54W | IRC>90 | Difuso + Pontual',
-        image: './images/pendente-fit10-couro.jpg',
-        model: './luminaria.glb',
-        scale: '0.4 0.4 0.4',
-        cameraOrbit: '45deg 60deg 1.5m'
-      },
-      {
-        id: 'arandela-fit10',
-        name: 'Arandela FIT10',
-        desc: 'Luminária de parede linear, delicada e expressiva',
-        specs: 'Bivolt 127-220V | 12W-40W | IRC>90 | 613-1531mm',
-        image: './images/arandela-fit10.jpg',
-        model: './luminaria.glb',
-        scale: '0.2 0.2 0.2',
-        cameraOrbit: '0deg 80deg 1m'
-      },
-      {
-        id: 'embutido-newpixel',
-        name: 'Embutido NewPixel',
-        desc: 'Spot embutido compacto, 1 a 3 focos com honeycomb',
-        specs: 'Bivolt 127-220V | 4W-12W | IRC>90 | UGR<13 | Direcionável',
-        image: './images/embutido-newpixel.jpg',
-        model: './embutido.glb',
-        scale: '0.1 0.1 0.1',
-        cameraOrbit: '0deg 60deg 0.8m'
-      },
-      {
-        id: 'embutido-cross',
-        name: 'Embutido Cross',
-        desc: 'Antiofuscamento extremo com facho cruzado, UGR<5',
-        specs: 'Bivolt 127-220V | 5W-12W | IRC>90 | UGR<5 | IP20',
-        image: './images/embutido-cross.jpg',
-        model: './embutido.glb',
-        scale: '0.1 0.1 0.1',
-        cameraOrbit: '0deg 60deg 0.8m'
-      },
-      {
-        id: 'embutido-comfort',
-        name: 'Embutido Comfort',
-        desc: 'IP44 para banheiros e áreas cobertas, lente ultra recuada',
-        specs: 'Bivolt 127-220V | 7W-15W | IRC>90 | UGR<13 | IP44',
-        image: './images/embutido-comfort.jpg',
-        model: './embutido.glb',
-        scale: '0.1 0.1 0.1',
-        cameraOrbit: '0deg 60deg 0.8m'
-      }
-    ];
+    document.getElementById('d-img').src = p.image;
+    document.getElementById('d-img').alt = p.name;
+    document.getElementById('d-category').textContent = p.category;
+    document.getElementById('d-name').textContent = p.name;
+    document.getElementById('d-price').textContent = p.price;
+    document.getElementById('d-price-old').textContent = p.priceOld;
+    document.getElementById('d-badge').textContent = calcDiscount(p.price, p.priceOld);
+    document.getElementById('d-installment').textContent = 'ou ' + p.installment + ' no cartão';
+    document.getElementById('d-ar-desc').textContent = p.arDesc;
 
-    // ── State ─────────────────────────────────────────────────────
-    let currentProductId = null;
+    // Specs
+    document.getElementById('d-specs').innerHTML = p.specs.map(([k,v]) => `
+      <div class="spec-item">
+        <div class="spec-label">${k}</div>
+        <div class="spec-value">${v}</div>
+      </div>
+    `).join('');
 
-    function getProduct(id) {
-      return products.find(p => p.id === id);
+    // model-viewer
+    const mv = document.getElementById('mv');
+    mv.src = p.model;
+    mv.setAttribute('scale', p.scale);
+    mv.setAttribute('camera-orbit', p.cameraOrbit);
+    mv.classList.add('visible');
+
+    // show detail, hide list
+    document.getElementById('view-list').style.display = 'none';
+    document.getElementById('view-detail').style.display = 'block';
+    document.getElementById('sticky-cta').classList.add('visible');
+    document.getElementById('btn-back').style.display = 'flex';
+    document.getElementById('header-logo').style.display = 'none';
+
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }
+
+  function showList() {
+    document.getElementById('view-list').style.display = 'block';
+    document.getElementById('view-detail').style.display = 'none';
+    document.getElementById('sticky-cta').classList.remove('visible');
+    document.getElementById('btn-back').style.display = 'none';
+    document.getElementById('header-logo').style.display = 'flex';
+    currentProduct = null;
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }
+
+  function activateAR() {
+    const mv = document.getElementById('mv');
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    if (isMobile && mv && mv.activateAR) {
+      mv.activateAR();
+    } else {
+      document.getElementById('ar-modal').classList.add('open');
     }
+  }
 
-    // ── Navigation ────────────────────────────────────────────────
-    function setView(viewId) {
-      ['view-list', 'view-detail', 'view-ar'].forEach(v => {
-        document.getElementById(v).classList.remove('active');
-      });
-      document.getElementById(viewId).classList.add('active');
-      window.scrollTo(0, 0);
-    }
+  function closeARModal() {
+    document.getElementById('ar-modal').classList.remove('open');
+  }
 
-    function showList() {
-      setView('view-list');
-      currentProductId = null;
-    }
+  function handleBuy() {
+    if (!currentProduct) return;
+    const msg = encodeURIComponent('Olá! Tenho interesse em: ' + currentProduct.name + ' (' + currentProduct.price + ')');
+    window.open('https://wa.me/5532999999999?text=' + msg, '_blank');
+  }
 
-    function showDetail(productId) {
-      const p = getProduct(productId);
-      if (!p) return;
-      currentProductId = productId;
-
-      document.getElementById('detail-img').src = p.image;
-      document.getElementById('detail-img').alt = p.name;
-      document.getElementById('detail-name').textContent = p.name;
-
-      // Spec tags
-      const tagsEl = document.getElementById('detail-spec-tags');
-      tagsEl.innerHTML = '';
-      p.specs.split('|').forEach(spec => {
-        const tag = document.createElement('span');
-        tag.className = 'spec-tag';
-        tag.textContent = spec.trim();
-        tagsEl.appendChild(tag);
-      });
-
-      // Bind AR button
-      document.getElementById('btn-open-ar').onclick = () => showAR(productId);
-
-      setView('view-detail');
-    }
-
-    function showAR(productId) {
-      const p = getProduct(productId);
-      if (!p) return;
-      currentProductId = productId;
-
-      const mv = document.getElementById('mv');
-      mv.src = p.model;
-      mv.setAttribute('scale', p.scale);
-      mv.setAttribute('camera-orbit', p.cameraOrbit);
-
-      document.getElementById('ar-product-name').textContent = p.name;
-
-      setView('view-ar');
-    }
-
-    // ── AR trigger ────────────────────────────────────────────────
-    function triggerAR() {
-      const mv = document.getElementById('mv');
-      if (mv && mv.canActivateAR) {
-        mv.activateAR();
-      } else {
-        document.getElementById('arModal').classList.add('active');
-      }
-    }
-
-    function closeArModal() {
-      document.getElementById('arModal').classList.remove('active');
-    }
-
-    document.getElementById('arModal').addEventListener('click', function(e) {
-      if (e.target === this) closeArModal();
-    });
-
-    // ── Render product grid ───────────────────────────────────────
-    function renderGrid() {
-      const grid = document.getElementById('product-grid');
-      grid.innerHTML = '';
-
-      products.forEach(p => {
-        const card = document.createElement('div');
-        card.className = 'product-card';
-        card.innerHTML = `
-          <img class="card-img" src="${p.image}" alt="${p.name}" loading="lazy" />
-          <div class="card-body">
-            <div class="card-name">${p.name}</div>
-            <div class="card-desc">${p.desc}</div>
-            <button class="card-btn">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 7V4.5C3 3.12 4.12 2 5.5 2H8v2H5.5a.5.5 0 00-.5.5V7H3zm13-5h2.5C19.88 2 21 3.12 21 4.5V7h-2V4.5a.5.5 0 00-.5-.5H16V2zM3 17v2.5C3 20.88 4.12 22 5.5 22H8v-2H5.5a.5.5 0 01-.5-.5V17H3zm13 3v2h2.5c1.38 0 2.5-1.12 2.5-2.5V17h-2v2.5a.5.5 0 01-.5.5H16zM12 9l-4 4h3v4h2v-4h3l-4-4z"/></svg>
-              Ver no ambiente →
-            </button>
-          </div>
-        `;
-        card.addEventListener('click', () => showDetail(p.id));
-        grid.appendChild(card);
-      });
-    }
-
-    // ── Init ──────────────────────────────────────────────────────
-    renderGrid();
-  </script>
+  buildGrid();
+</script>
 </body>
 </html>
