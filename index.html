@@ -3,36 +3,39 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="theme-color" content="#111111" />
-  <title>Luminária Decorativa Aramada — Cidade Luz JF</title>
-
-  <!-- Google Model Viewer via CDN -->
+  <meta name="theme-color" content="#0a0a0f" />
+  <title>Cidade Luz JF — Catálogo Newline com AR</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
 
   <style>
-    /* ---- Reset & base ---- */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --amber: #D4860A;
-      --amber-light: #F5A623;
-      --amber-bg: #FFF8ED;
-      --dark: #111111;
-      --gray-900: #1A1A1A;
-      --gray-700: #444444;
-      --gray-400: #999999;
-      --gray-100: #F5F5F5;
-      --white: #FFFFFF;
+      --bg: #0a0a0f;
+      --bg-card: #12121a;
+      --bg-card-hover: #1a1a28;
+      --border: rgba(139, 92, 246, 0.15);
+      --border-hover: rgba(139, 92, 246, 0.4);
+      --purple: #8b5cf6;
+      --purple-light: #a78bfa;
+      --purple-glow: rgba(139, 92, 246, 0.25);
+      --text: #f1f0f5;
+      --text-muted: #8b8a9a;
+      --text-dim: #5a5970;
+      --white: #ffffff;
       --radius: 12px;
-      --radius-lg: 20px;
+      --radius-lg: 16px;
     }
 
     html { scroll-behavior: smooth; }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background: var(--white);
-      color: var(--dark);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
       min-height: 100dvh;
       -webkit-font-smoothing: antialiased;
     }
@@ -42,7 +45,10 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      background: var(--dark);
+      background: rgba(10, 10, 15, 0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
       padding: 14px 20px;
       display: flex;
       align-items: center;
@@ -57,13 +63,14 @@
     }
 
     .logo-icon {
-      width: 32px;
-      height: 32px;
-      background: var(--amber);
-      border-radius: 8px;
+      width: 34px;
+      height: 34px;
+      background: linear-gradient(135deg, var(--purple), #6d28d9);
+      border-radius: 9px;
       display: flex;
       align-items: center;
       justify-content: center;
+      box-shadow: 0 0 16px var(--purple-glow);
     }
 
     .logo-icon svg { width: 18px; height: 18px; fill: var(--white); }
@@ -79,60 +86,16 @@
     .logo-text span {
       display: block;
       font-size: 10px;
-      font-weight: 400;
-      color: var(--amber-light);
-      letter-spacing: 0.5px;
+      font-weight: 500;
+      color: var(--purple-light);
+      letter-spacing: 0.8px;
       text-transform: uppercase;
     }
 
-    .header-cart {
-      position: relative;
-      color: var(--white);
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 6px;
-    }
-
-    .header-cart svg { width: 24px; height: 24px; }
-
-    /* ---- Breadcrumb ---- */
-    .breadcrumb {
-      padding: 12px 20px;
-      font-size: 12px;
-      color: var(--gray-400);
-      border-bottom: 1px solid var(--gray-100);
-    }
-
-    .breadcrumb a { color: var(--gray-400); text-decoration: none; }
-    .breadcrumb span { margin: 0 6px; }
-
-    /* ---- Product image / AR viewer ---- */
-    .product-visual {
-      background: var(--gray-100);
-      position: relative;
-      width: 100%;
-      aspect-ratio: 1 / 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-    }
-
-    model-viewer {
-      width: 100%;
-      height: 100%;
-      background-color: #F5F5F5;
-      --poster-color: #F5F5F5;
-    }
-
-    /* AR badge overlay */
-    .ar-badge {
-      position: absolute;
-      top: 14px;
-      right: 14px;
-      background: rgba(0,0,0,0.75);
-      color: var(--white);
+    .header-badge {
+      background: rgba(139, 92, 246, 0.12);
+      border: 1px solid var(--border);
+      color: var(--purple-light);
       font-size: 11px;
       font-weight: 600;
       padding: 5px 10px;
@@ -140,367 +103,465 @@
       display: flex;
       align-items: center;
       gap: 5px;
+    }
+
+    .header-badge::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--purple);
+      border-radius: 50%;
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    /* ---- Breadcrumb / Back ---- */
+    .breadcrumb {
+      padding: 14px 20px;
+      font-size: 13px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .breadcrumb a {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .breadcrumb a:hover { color: var(--purple-light); }
+    .breadcrumb .sep { color: var(--text-dim); }
+
+    .back-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--purple-light);
+      font-size: 14px;
+      font-weight: 600;
+      font-family: inherit;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 20px;
+      transition: opacity 0.15s;
+    }
+
+    .back-btn:hover { opacity: 0.75; }
+    .back-btn svg { width: 16px; height: 16px; }
+
+    /* ---- Views ---- */
+    #view-list, #view-detail, #view-ar { display: none; }
+    #view-list.active, #view-detail.active, #view-ar.active { display: block; }
+
+    /* ---- List View ---- */
+    .list-header {
+      padding: 24px 20px 16px;
+    }
+
+    .list-title {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: var(--white);
+      margin-bottom: 6px;
+    }
+
+    .list-subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      padding: 0 16px 100px;
+    }
+
+    @media (min-width: 768px) {
+      .product-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        padding: 0 20px 100px;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      body { max-width: 1100px; margin: 0 auto; }
+    }
+
+    .product-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      cursor: pointer;
+      transition: border-color 0.2s, transform 0.15s, box-shadow 0.2s;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .product-card:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(139, 92, 246, 0.12);
+    }
+
+    .product-card:active { transform: scale(0.98); }
+
+    .card-img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      background: #1a1a28;
+      display: block;
+    }
+
+    .card-body {
+      padding: 12px;
+    }
+
+    .card-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.3;
+      margin-bottom: 4px;
+    }
+
+    .card-desc {
+      font-size: 11px;
+      color: var(--text-muted);
+      line-height: 1.4;
+      margin-bottom: 10px;
+    }
+
+    .card-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      width: 100%;
+      padding: 9px 10px;
+      background: rgba(139, 92, 246, 0.1);
+      border: 1px solid rgba(139, 92, 246, 0.3);
+      border-radius: 8px;
+      color: var(--purple-light);
+      font-size: 12px;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s;
+    }
+
+    .card-btn:hover {
+      background: rgba(139, 92, 246, 0.2);
+      border-color: var(--purple);
+    }
+
+    .card-btn svg { width: 12px; height: 12px; }
+
+    /* ---- Detail View ---- */
+    .detail-img-wrap {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      background: #12121a;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .detail-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .detail-img-badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: rgba(139, 92, 246, 0.85);
       backdrop-filter: blur(8px);
-      letter-spacing: 0.3px;
+      color: var(--white);
+      font-size: 10px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 20px;
+      letter-spacing: 0.5px;
     }
 
-    .ar-badge svg { width: 14px; height: 14px; }
-
-    /* ---- Product info ---- */
-    .product-info {
-      padding: 20px 20px 0;
+    .detail-body {
+      padding: 20px;
     }
 
-    .product-category {
+    .detail-name {
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: var(--white);
+      margin-bottom: 10px;
+      line-height: 1.2;
+    }
+
+    .detail-specs-label {
       font-size: 11px;
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 1px;
-      color: var(--amber);
-      margin-bottom: 6px;
+      color: var(--text-dim);
+      margin-bottom: 8px;
     }
 
-    .product-name {
-      font-size: 22px;
-      font-weight: 700;
-      line-height: 1.25;
-      color: var(--dark);
-      margin-bottom: 10px;
+    .detail-specs {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      margin-bottom: 20px;
     }
 
-    .rating-row {
+    .spec-tags {
       display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 14px;
+      flex-wrap: wrap;
+      gap: 6px;
     }
 
-    .stars { color: var(--amber); font-size: 13px; }
-    .rating-count { font-size: 12px; color: var(--gray-400); }
-
-    .price-block {
-      display: flex;
-      align-items: baseline;
-      gap: 10px;
-      margin-bottom: 6px;
-    }
-
-    .price-main {
-      font-size: 28px;
-      font-weight: 800;
-      color: var(--dark);
-      letter-spacing: -1px;
-    }
-
-    .price-old {
-      font-size: 15px;
-      color: var(--gray-400);
-      text-decoration: line-through;
-    }
-
-    .price-badge {
-      background: #E8F5E9;
-      color: #2E7D32;
+    .spec-tag {
+      background: rgba(139, 92, 246, 0.08);
+      border: 1px solid rgba(139, 92, 246, 0.2);
+      color: var(--purple-light);
       font-size: 11px;
-      font-weight: 700;
-      padding: 3px 7px;
+      font-weight: 600;
+      padding: 4px 10px;
       border-radius: 6px;
     }
 
-    .price-installment {
-      font-size: 13px;
-      color: var(--gray-700);
-      margin-bottom: 16px;
-    }
-
-    .price-installment strong { color: var(--dark); }
-
-    /* ---- AR CTA section ---- */
-    .ar-section {
-      margin: 0 20px;
-      background: var(--amber-bg);
-      border: 1.5px solid #F5A62333;
+    .ar-cta-section {
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.08), rgba(109, 40, 217, 0.05));
+      border: 1px solid rgba(139, 92, 246, 0.25);
       border-radius: var(--radius-lg);
       padding: 16px;
       display: flex;
       align-items: center;
       gap: 14px;
+      margin-bottom: 20px;
     }
 
-    .ar-icon-wrap {
-      width: 48px;
-      height: 48px;
-      background: var(--amber);
+    .ar-cta-icon {
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, var(--purple), #6d28d9);
       border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
+      box-shadow: 0 4px 16px var(--purple-glow);
     }
 
-    .ar-icon-wrap svg { width: 26px; height: 26px; fill: var(--white); }
+    .ar-cta-icon svg { width: 22px; height: 22px; fill: var(--white); }
 
-    .ar-text h3 {
+    .ar-cta-text h3 {
       font-size: 14px;
       font-weight: 700;
-      margin-bottom: 2px;
+      color: var(--white);
+      margin-bottom: 3px;
     }
 
-    .ar-text p {
+    .ar-cta-text p {
       font-size: 12px;
-      color: var(--gray-700);
+      color: var(--text-muted);
       line-height: 1.4;
     }
 
-    /* ---- Action buttons ---- */
-    .actions {
-      padding: 16px 20px 0;
+    .btn-ar-main {
+      width: 100%;
+      padding: 16px 20px;
+      background: linear-gradient(135deg, var(--purple), #6d28d9);
+      border: none;
+      border-radius: var(--radius);
+      color: var(--white);
+      font-size: 16px;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0 4px 24px var(--purple-glow);
+      transition: opacity 0.15s, transform 0.1s;
+      letter-spacing: -0.2px;
+      -webkit-tap-highlight-color: transparent;
+      animation: pulse-purple 2.5s ease-in-out infinite;
+    }
+
+    .btn-ar-main:active { transform: scale(0.98); opacity: 0.9; }
+    .btn-ar-main svg { width: 20px; height: 20px; fill: var(--white); }
+
+    @keyframes pulse-purple {
+      0%, 100% { box-shadow: 0 4px 24px rgba(139, 92, 246, 0.25); }
+      50% { box-shadow: 0 4px 40px rgba(139, 92, 246, 0.5); }
+    }
+
+    /* ---- AR View ---- */
+    .ar-view-wrap {
       display: flex;
       flex-direction: column;
+      height: calc(100dvh - 57px);
+    }
+
+    .ar-topbar {
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .ar-product-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    .ar-hint {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    model-viewer {
+      width: 100%;
+      flex: 1;
+      background: #0d0d14;
+      --poster-color: #0d0d14;
+    }
+
+    .ar-footer-bar {
+      padding: 14px 16px env(safe-area-inset-bottom, 14px);
+      border-top: 1px solid var(--border);
+      display: flex;
       gap: 10px;
     }
 
-    .btn {
-      width: 100%;
-      padding: 16px 20px;
+    .btn-activate-ar {
+      flex: 1;
+      padding: 14px;
+      background: linear-gradient(135deg, var(--purple), #6d28d9);
+      border: none;
       border-radius: var(--radius);
+      color: var(--white);
       font-size: 15px;
       font-weight: 700;
+      font-family: inherit;
       cursor: pointer;
-      border: none;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
-      transition: opacity 0.15s, transform 0.1s;
-      letter-spacing: -0.2px;
+      box-shadow: 0 4px 20px var(--purple-glow);
       -webkit-tap-highlight-color: transparent;
+      animation: pulse-purple 2.5s ease-in-out infinite;
     }
 
-    .btn:active { transform: scale(0.98); opacity: 0.9; }
+    .btn-activate-ar svg { width: 18px; height: 18px; fill: var(--white); }
 
-    .btn-ar {
-      background: var(--amber);
-      color: var(--white);
-      font-size: 16px;
-      box-shadow: 0 4px 20px rgba(212, 134, 10, 0.35);
-    }
-
-    .btn-ar svg { width: 20px; height: 20px; fill: var(--white); }
-
-    .btn-cart {
-      background: var(--dark);
-      color: var(--white);
-    }
-
-    .btn-cart svg { width: 18px; height: 18px; stroke: var(--white); fill: none; }
-
-    .btn-wishlist {
-      background: var(--gray-100);
-      color: var(--dark);
-      font-weight: 600;
-    }
-
-    .btn-wishlist svg { width: 18px; height: 18px; stroke: var(--dark); fill: none; }
-
-    /* ---- Description ---- */
-    .section {
-      padding: 20px 20px 0;
-    }
-
-    .section h2 {
-      font-size: 14px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.8px;
-      color: var(--gray-700);
-      margin-bottom: 10px;
-      padding-bottom: 8px;
-      border-bottom: 1.5px solid var(--gray-100);
-    }
-
-    .description {
-      font-size: 14px;
-      color: var(--gray-700);
-      line-height: 1.65;
-    }
-
-    /* ---- Specs grid ---- */
-    .specs-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-    }
-
-    .spec-item {
-      background: var(--gray-100);
-      border-radius: 10px;
-      padding: 12px;
-    }
-
-    .spec-label {
-      font-size: 10px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.6px;
-      color: var(--gray-400);
-      margin-bottom: 3px;
-    }
-
-    .spec-value {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--dark);
-    }
-
-    /* ---- Shipping info ---- */
-    .shipping-block {
-      background: var(--gray-100);
-      border-radius: var(--radius);
-      padding: 14px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .shipping-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 13px;
-    }
-
-    .shipping-row svg { width: 18px; height: 18px; flex-shrink: 0; color: var(--amber); }
-    .shipping-row strong { font-weight: 700; color: var(--dark); }
-    .shipping-row span { color: var(--gray-700); }
-
-    /* ---- Trust badges ---- */
-    .trust-row {
-      display: flex;
-      justify-content: space-between;
-      gap: 6px;
-      padding: 16px 20px 0;
-    }
-
-    .trust-item {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 4px;
-      text-align: center;
-    }
-
-    .trust-item svg { width: 20px; height: 20px; color: var(--amber); }
-    .trust-item span { font-size: 10px; color: var(--gray-700); font-weight: 500; line-height: 1.3; }
-
-    /* ---- Footer ---- */
-    footer {
-      margin-top: 32px;
-      padding: 24px 20px env(safe-area-inset-bottom, 16px);
-      background: var(--dark);
-      text-align: center;
-    }
-
-    .footer-logo {
-      font-size: 16px;
-      font-weight: 800;
-      color: var(--white);
-      letter-spacing: -0.3px;
-      margin-bottom: 6px;
-    }
-
-    .footer-tagline {
-      font-size: 12px;
-      color: var(--amber-light);
-      margin-bottom: 12px;
-    }
-
-    .footer-note {
-      font-size: 11px;
-      color: var(--gray-400);
-    }
-
-    /* ---- Sticky bottom CTA (mobile) ---- */
-    .sticky-cta {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      z-index: 99;
-      padding: 12px 16px env(safe-area-inset-bottom, 12px);
-      background: rgba(255,255,255,0.95);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-top: 1px solid rgba(0,0,0,0.08);
-      display: flex;
-      gap: 10px;
-    }
-
-    .sticky-cta .btn-ar {
-      flex: 1;
-      padding: 14px;
-      font-size: 14px;
-    }
-
-    .sticky-cta .btn-cart {
-      flex: 1;
-      padding: 14px;
-      font-size: 14px;
-    }
-
-    /* Bottom spacer for sticky CTA */
-    .bottom-spacer { height: 90px; }
-
-    /* ---- AR overlay/modal ---- */
-    .ar-not-supported {
+    /* ---- AR Not Supported Modal ---- */
+    .ar-modal-overlay {
       display: none;
       position: fixed;
       inset: 0;
-      z-index: 200;
-      background: rgba(0,0,0,0.85);
+      z-index: 300;
+      background: rgba(0, 0, 0, 0.85);
       align-items: center;
       justify-content: center;
       padding: 24px;
     }
 
-    .ar-not-supported.active { display: flex; }
+    .ar-modal-overlay.active { display: flex; }
 
     .ar-modal {
-      background: var(--white);
+      background: var(--bg-card);
+      border: 1px solid var(--border);
       border-radius: var(--radius-lg);
       padding: 28px 24px;
       text-align: center;
       max-width: 340px;
+      width: 100%;
     }
 
-    .ar-modal h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
-    .ar-modal p { font-size: 14px; color: var(--gray-700); line-height: 1.5; margin-bottom: 20px; }
+    .ar-modal-icon { font-size: 40px; margin-bottom: 14px; }
+    .ar-modal h3 { font-size: 18px; font-weight: 700; color: var(--white); margin-bottom: 8px; }
+    .ar-modal p { font-size: 14px; color: var(--text-muted); line-height: 1.55; margin-bottom: 20px; }
 
-    .ar-modal .btn-close {
+    .btn-modal-close {
       width: 100%;
       padding: 14px;
-      background: var(--dark);
+      background: var(--purple);
       color: var(--white);
       border: none;
       border-radius: var(--radius);
       font-size: 15px;
       font-weight: 700;
+      font-family: inherit;
       cursor: pointer;
     }
 
-    /* ---- Animations ---- */
-    @keyframes pulse-amber {
-      0%, 100% { box-shadow: 0 4px 20px rgba(212, 134, 10, 0.35); }
-      50% { box-shadow: 0 4px 30px rgba(212, 134, 10, 0.6); }
+    /* ---- Footer ---- */
+    footer {
+      padding: 28px 20px env(safe-area-inset-bottom, 20px);
+      background: var(--bg-card);
+      border-top: 1px solid var(--border);
+      text-align: center;
     }
 
-    .btn-ar { animation: pulse-amber 2.5s ease-in-out infinite; }
+    .footer-logo {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -0.3px;
+      margin-bottom: 4px;
+    }
 
-    /* Responsive — tablet+ */
+    .footer-note {
+      font-size: 12px;
+      color: var(--text-dim);
+    }
+
+    /* ---- Sticky CTA in list ---- */
+    .list-sticky-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      padding: 12px 20px env(safe-area-inset-bottom, 12px);
+      background: rgba(10, 10, 15, 0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .list-sticky-bar p {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .list-sticky-bar strong {
+      color: var(--purple-light);
+    }
+
+    /* Tablet+ */
     @media (min-width: 600px) {
-      body { max-width: 480px; margin: 0 auto; }
-      header { border-radius: 0; }
+      .product-grid { padding: 0 20px 100px; }
     }
   </style>
 </head>
@@ -508,246 +569,278 @@
 
   <!-- Header -->
   <header>
-    <a href="#" class="logo">
+    <a href="#" class="logo" onclick="showList(); return false;">
       <div class="logo-icon">
-        <!-- Lamp icon -->
         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path d="M12 2C8.13 2 5 5.13 5 9c0 2.74 1.54 5.13 3.82 6.39L9 17h6l.18-1.61C17.46 14.13 19 11.74 19 9c0-3.87-3.13-7-7-7zm-1 14v1h2v-1h-2zm1-12c-2.76 0-5 2.24-5 5h2c0-1.65 1.35-3 3-3V4z"/>
         </svg>
       </div>
       <div class="logo-text">
         Cidade Luz JF
-        <span>Iluminação Premium</span>
+        <span>Revendedora Newline</span>
       </div>
     </a>
-    <button class="header-cart" aria-label="Carrinho">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
-        <line x1="3" y1="6" x2="21" y2="6"/>
-        <path d="M16 10a4 4 0 01-8 0"/>
-      </svg>
-    </button>
+    <div class="header-badge">AR 3D</div>
   </header>
 
-  <!-- Breadcrumb -->
-  <nav class="breadcrumb">
-    <a href="#">Início</a><span>›</span>
-    <a href="#">Pendentes</a><span>›</span>
-    Luminária Decorativa Aramada
-  </nav>
+  <!-- ============================================================ -->
+  <!-- VIEW: LIST -->
+  <!-- ============================================================ -->
+  <div id="view-list" class="active">
+    <div class="list-header">
+      <h1 class="list-title">Linha Newline</h1>
+      <p class="list-subtitle">7 produtos — toque para ver em realidade aumentada</p>
+    </div>
 
-  <!-- Product Visual — Model Viewer AR -->
-  <div class="product-visual">
-    <model-viewer
-      id="mv"
-      src="./luminaria.glb"
-      alt="Luminária Decorativa Aramada — Cidade Luz JF"
-      ar
-      ar-modes="webxr scene-viewer quick-look"
-      ar-scale="auto"
-      camera-orbit="45deg 60deg 1.5m"
-      min-camera-orbit="auto auto 0.5m"
-      max-camera-orbit="auto auto 4m"
-      scale="0.3 0.3 0.3"
-      camera-controls
-      auto-rotate
-      auto-rotate-delay="1000"
-      rotation-per-second="30deg"
-      shadow-intensity="1"
-      exposure="0.9"
-      poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Crect fill='%23F5F5F5' width='400' height='400'/%3E%3Ctext x='50%25' y='46%25' dominant-baseline='middle' text-anchor='middle' font-family='system-ui' font-size='18' fill='%23999'%3ECarregando modelo 3D...%3C/text%3E%3Ctext x='50%25' y='56%25' dominant-baseline='middle' text-anchor='middle' font-family='system-ui' font-size='14' fill='%23bbb'%3E✦ Luminária Decorativa Aramada%3C/text%3E%3C/svg%3E"
-    >
-      <!-- Custom AR button inside model-viewer slot -->
-      <button slot="ar-button" class="btn btn-ar" style="position:absolute;bottom:16px;left:50%;transform:translateX(-50%);width:calc(100% - 32px);animation:pulse-amber 2.5s ease-in-out infinite;">
+    <div class="product-grid" id="product-grid">
+      <!-- Rendered by JS -->
+    </div>
+
+    <footer>
+      <div class="footer-logo">Cidade Luz JF</div>
+      <div class="footer-note">Powered by Cidade Luz JF · Produtos Newline</div>
+    </footer>
+
+    <div class="list-sticky-bar">
+      <p>Toque num produto e clique <strong>"Ver no ambiente 📱"</strong> para AR</p>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- VIEW: DETAIL -->
+  <!-- ============================================================ -->
+  <div id="view-detail">
+    <button class="back-btn" onclick="showList()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+      Voltar ao catálogo
+    </button>
+
+    <div class="detail-img-wrap">
+      <img id="detail-img" class="detail-img" src="" alt="" />
+      <span class="detail-img-badge">Newline</span>
+    </div>
+
+    <div class="detail-body">
+      <h1 id="detail-name" class="detail-name"></h1>
+
+      <p class="detail-specs-label">Especificações técnicas</p>
+      <div class="detail-specs">
+        <div class="spec-tags" id="detail-spec-tags"></div>
+      </div>
+
+      <div class="ar-cta-section">
+        <div class="ar-cta-icon">
+          <svg viewBox="0 0 24 24"><path d="M3 7V4.5C3 3.12 4.12 2 5.5 2H8v2H5.5a.5.5 0 00-.5.5V7H3zm13-5h2.5C19.88 2 21 3.12 21 4.5V7h-2V4.5a.5.5 0 00-.5-.5H16V2zM3 17v2.5C3 20.88 4.12 22 5.5 22H8v-2H5.5a.5.5 0 01-.5-.5V17H3zm13 3v2h2.5c1.38 0 2.5-1.12 2.5-2.5V17h-2v2.5a.5.5 0 01-.5.5H16zM12 9l-4 4h3v4h2v-4h3l-4-4z"/></svg>
+        </div>
+        <div class="ar-cta-text">
+          <h3>Veja no seu ambiente real</h3>
+          <p>Aponte a câmera e veja a luminária em escala real no seu espaço.</p>
+        </div>
+      </div>
+
+      <button class="btn-ar-main" id="btn-open-ar">
         <svg viewBox="0 0 24 24"><path d="M3 7V4.5C3 3.12 4.12 2 5.5 2H8v2H5.5a.5.5 0 00-.5.5V7H3zm13-5h2.5C19.88 2 21 3.12 21 4.5V7h-2V4.5a.5.5 0 00-.5-.5H16V2zM3 17v2.5C3 20.88 4.12 22 5.5 22H8v-2H5.5a.5.5 0 01-.5-.5V17H3zm13 3v2h2.5c1.38 0 2.5-1.12 2.5-2.5V17h-2v2.5a.5.5 0 01-.5.5H16zM12 9l-4 4h3v4h2v-4h3l-4-4z"/></svg>
-        Ver no seu ambiente
+        Ver no ambiente 📱
       </button>
-    </model-viewer>
-
-    <div class="ar-badge">
-      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 7V4.5C3 3.12 4.12 2 5.5 2H8v2H5.5a.5.5 0 00-.5.5V7H3zm13-5h2.5C19.88 2 21 3.12 21 4.5V7h-2V4.5a.5.5 0 00-.5-.5H16V2zM3 17v2.5C3 20.88 4.12 22 5.5 22H8v-2H5.5a.5.5 0 01-.5-.5V17H3zm13 3v2h2.5c1.38 0 2.5-1.12 2.5-2.5V17h-2v2.5a.5.5 0 01-.5.5H16z"/></svg>
-      AR disponível
     </div>
   </div>
 
-  <!-- Product Info -->
-  <div class="product-info">
-    <p class="product-category">Pendentes · Linha Decorativa</p>
-    <h1 class="product-name">Luminária Decorativa Aramada</h1>
-
-    <div class="rating-row">
-      <span class="stars">★★★★★</span>
-      <span class="rating-count">4,9 · 47 avaliações</span>
-    </div>
-
-    <div class="price-block">
-      <span class="price-main">R$ 389,00</span>
-      <span class="price-old">R$ 449,00</span>
-      <span class="price-badge">-13%</span>
-    </div>
-    <p class="price-installment">ou <strong>12x de R$ 35,43</strong> sem juros no cartão</p>
-  </div>
-
-  <!-- AR CTA card -->
-  <div class="ar-section" style="margin: 16px 20px 0;">
-    <div class="ar-icon-wrap">
-      <svg viewBox="0 0 24 24"><path d="M3 7V4.5C3 3.12 4.12 2 5.5 2H8v2H5.5a.5.5 0 00-.5.5V7H3zm13-5h2.5C19.88 2 21 3.12 21 4.5V7h-2V4.5a.5.5 0 00-.5-.5H16V2zM3 17v2.5C3 20.88 4.12 22 5.5 22H8v-2H5.5a.5.5 0 01-.5-.5V17H3zm13 3v2h2.5c1.38 0 2.5-1.12 2.5-2.5V17h-2v2.5a.5.5 0 01-.5.5H16zM12 9l-4 4h3v4h2v-4h3l-4-4z"/></svg>
-    </div>
-    <div class="ar-text">
-      <h3>Veja no seu ambiente antes de comprar</h3>
-      <p>Aponte a câmera para o teto ou parede e veja o pendente em escala real no seu espaço.</p>
-    </div>
-  </div>
-
-  <!-- Action buttons -->
-  <div class="actions">
-    <button class="btn btn-ar" onclick="triggerAR()">
-      <svg viewBox="0 0 24 24"><path d="M3 7V4.5C3 3.12 4.12 2 5.5 2H8v2H5.5a.5.5 0 00-.5.5V7H3zm13-5h2.5C19.88 2 21 3.12 21 4.5V7h-2V4.5a.5.5 0 00-.5-.5H16V2zM3 17v2.5C3 20.88 4.12 22 5.5 22H8v-2H5.5a.5.5 0 01-.5-.5V17H3zm13 3v2h2.5c1.38 0 2.5-1.12 2.5-2.5V17h-2v2.5a.5.5 0 01-.5.5H16zM12 9l-4 4h3v4h2v-4h3l-4-4z"/></svg>
-      Ver no seu ambiente
-    </button>
-    <button class="btn btn-cart">
-      <svg viewBox="0 0 24 24" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-      Adicionar ao Carrinho
-    </button>
-    <button class="btn btn-wishlist">
-      <svg viewBox="0 0 24 24" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
-      Salvar na Lista de Desejos
-    </button>
-  </div>
-
-  <!-- Description -->
-  <div class="section" style="margin-top: 20px;">
-    <h2>Descrição</h2>
-    <p class="description">
-      Pendente estilo industrial com estrutura em arame de aço carbono e acabamento preto fosco. Ideal para salas de jantar, cozinhas de conceito aberto e escritórios com decoração contemporânea. Altura totalmente ajustável de 40 cm a 140 cm. Compatível com lâmpadas E27 até 60W. Certificação INMETRO inclusa.
-    </p>
-  </div>
-
-  <!-- Specs -->
-  <div class="section" style="margin-top: 18px;">
-    <h2>Especificações</h2>
-    <div class="specs-grid">
-      <div class="spec-item">
-        <div class="spec-label">Altura ajustável</div>
-        <div class="spec-value">40–140 cm</div>
+  <!-- ============================================================ -->
+  <!-- VIEW: AR / MODEL VIEWER -->
+  <!-- ============================================================ -->
+  <div id="view-ar">
+    <div class="ar-view-wrap">
+      <div class="ar-topbar">
+        <button class="back-btn" style="padding:0;" onclick="showDetail(currentProductId)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16"><polyline points="15 18 9 12 15 6"/></svg>
+          Voltar
+        </button>
+        <div>
+          <div id="ar-product-name" class="ar-product-name"></div>
+          <div class="ar-hint">Gire e amplie o modelo</div>
+        </div>
       </div>
-      <div class="spec-item">
-        <div class="spec-label">Diâmetro</div>
-        <div class="spec-value">30 cm</div>
-      </div>
-      <div class="spec-item">
-        <div class="spec-label">Soquete</div>
-        <div class="spec-value">E27</div>
-      </div>
-      <div class="spec-item">
-        <div class="spec-label">Potência máx.</div>
-        <div class="spec-value">60W</div>
-      </div>
-      <div class="spec-item">
-        <div class="spec-label">Cor</div>
-        <div class="spec-value">Preto fosco</div>
-      </div>
-      <div class="spec-item">
-        <div class="spec-label">Garantia</div>
-        <div class="spec-value">12 meses</div>
+
+      <model-viewer
+        id="mv"
+        ar
+        ar-modes="webxr scene-viewer quick-look"
+        ar-scale="auto"
+        camera-controls
+        touch-action="pan-y"
+        auto-rotate
+        loading="eager"
+        shadow-intensity="1"
+        exposure="0.95"
+      >
+        <button slot="ar-button" class="btn-activate-ar" style="position:absolute;bottom:80px;left:50%;transform:translateX(-50%);width:calc(100% - 32px);">
+          <svg viewBox="0 0 24 24"><path d="M3 7V4.5C3 3.12 4.12 2 5.5 2H8v2H5.5a.5.5 0 00-.5.5V7H3zm13-5h2.5C19.88 2 21 3.12 21 4.5V7h-2V4.5a.5.5 0 00-.5-.5H16V2zM3 17v2.5C3 20.88 4.12 22 5.5 22H8v-2H5.5a.5.5 0 01-.5-.5V17H3zm13 3v2h2.5c1.38 0 2.5-1.12 2.5-2.5V17h-2v2.5a.5.5 0 01-.5.5H16zM12 9l-4 4h3v4h2v-4h3l-4-4z"/></svg>
+          Ver no ambiente 📱
+        </button>
+      </model-viewer>
+
+      <div class="ar-footer-bar">
+        <button class="btn-activate-ar" onclick="triggerAR()">
+          <svg viewBox="0 0 24 24"><path d="M3 7V4.5C3 3.12 4.12 2 5.5 2H8v2H5.5a.5.5 0 00-.5.5V7H3zm13-5h2.5C19.88 2 21 3.12 21 4.5V7h-2V4.5a.5.5 0 00-.5-.5H16V2zM3 17v2.5C3 20.88 4.12 22 5.5 22H8v-2H5.5a.5.5 0 01-.5-.5V17H3zm13 3v2h2.5c1.38 0 2.5-1.12 2.5-2.5V17h-2v2.5a.5.5 0 01-.5.5H16zM12 9l-4 4h3v4h2v-4h3l-4-4z"/></svg>
+          Ativar Realidade Aumentada
+        </button>
       </div>
     </div>
-  </div>
-
-  <!-- Shipping -->
-  <div class="section" style="margin-top: 18px;">
-    <h2>Entrega e Retirada</h2>
-    <div class="shipping-block">
-      <div class="shipping-row">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
-        <div><strong>Frete grátis</strong> <span>para Juiz de Fora</span></div>
-      </div>
-      <div class="shipping-row">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-        <div><strong>Retirada em loja</strong> <span>Disponível em 1 dia útil</span></div>
-      </div>
-      <div class="shipping-row">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg>
-        <div><strong>Devolução grátis</strong> <span>até 30 dias</span></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Trust badges -->
-  <div class="trust-row">
-    <div class="trust-item">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-      <span>Compra 100% segura</span>
-    </div>
-    <div class="trust-item">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
-      <span>Pix &amp; Cartão</span>
-    </div>
-    <div class="trust-item">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/><polyline points="12 6 12 12 16 14"/></svg>
-      <span>Pronta entrega</span>
-    </div>
-    <div class="trust-item">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 12a19.79 19.79 0 01-3.07-8.67A2 2 0 012 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
-      <span>Suporte WhatsApp</span>
-    </div>
-  </div>
-
-  <!-- Bottom spacer for sticky bar -->
-  <div class="bottom-spacer"></div>
-
-  <!-- Footer -->
-  <footer>
-    <div class="footer-logo">Cidade Luz JF</div>
-    <div class="footer-tagline">Transformamos luz em atmosfera de luxo</div>
-    <div class="footer-note">@cidadeluz.jf · Juiz de Fora, MG · +3.000 projetos entregues</div>
-  </footer>
-
-  <!-- Sticky bottom CTA -->
-  <div class="sticky-cta">
-    <button class="btn btn-ar" onclick="triggerAR()">
-      <svg viewBox="0 0 24 24" fill="white" width="18" height="18"><path d="M3 7V4.5C3 3.12 4.12 2 5.5 2H8v2H5.5a.5.5 0 00-.5.5V7H3zm13-5h2.5C19.88 2 21 3.12 21 4.5V7h-2V4.5a.5.5 0 00-.5-.5H16V2zM3 17v2.5C3 20.88 4.12 22 5.5 22H8v-2H5.5a.5.5 0 01-.5-.5V17H3zm13 3v2h2.5c1.38 0 2.5-1.12 2.5-2.5V17h-2v2.5a.5.5 0 01-.5.5H16zM12 9l-4 4h3v4h2v-4h3l-4-4z"/></svg>
-      Ver em AR
-    </button>
-    <button class="btn btn-cart" style="flex:1;">
-      <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" width="18" height="18"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-      Comprar
-    </button>
   </div>
 
   <!-- AR Not Supported Modal -->
-  <div class="ar-not-supported" id="arModal">
+  <div class="ar-modal-overlay" id="arModal">
     <div class="ar-modal">
-      <div style="font-size:40px;margin-bottom:12px;">📱</div>
+      <div class="ar-modal-icon">📱</div>
       <h3>AR disponível no celular</h3>
-      <p>Para ver o pendente no seu ambiente, acesse essa página no seu iPhone ou Android com Chrome.</p>
-      <button class="btn-close" onclick="closeArModal()">Entendi</button>
+      <p>Para ver a luminária no seu ambiente, acesse essa página no seu iPhone ou Android com Chrome/Safari.</p>
+      <button class="btn-modal-close" onclick="closeArModal()">Entendi</button>
     </div>
   </div>
 
   <script>
-    // AR trigger with device check
+    // ── Product data ──────────────────────────────────────────────
+    const products = [
+      {
+        id: 'sistema-fit10',
+        name: 'Sistema FIT10 Linear',
+        desc: 'Trilho modular de 0,5m a 3m, até 3 circuitos independentes',
+        specs: 'Tensão 24V | IRC>90 | SDCM<3 | Dimmerizável DUAL DIM',
+        image: './images/sistema-fit10.jpg',
+        model: './luminaria.glb',
+        scale: '0.3 0.3 0.3',
+        cameraOrbit: '0deg 70deg 1.5m'
+      },
+      {
+        id: 'pendente-fit10',
+        name: 'Pendente FIT10',
+        desc: 'Luminária pendente linear, luz direta e indireta',
+        specs: 'Bivolt 127-220V | 35W-54W | IRC>90 | 1200-1500mm',
+        image: './images/pendente-fit10.jpg',
+        model: './luminaria.glb',
+        scale: '0.4 0.4 0.4',
+        cameraOrbit: '45deg 60deg 1.5m'
+      },
+      {
+        id: 'pendente-fit10-couro',
+        name: 'Pendente FIT10 Couro',
+        desc: 'Pendente com alças em couro marrom havana',
+        specs: 'Bivolt 127-220V | 32W-54W | IRC>90 | Difuso + Pontual',
+        image: './images/pendente-fit10-couro.jpg',
+        model: './luminaria.glb',
+        scale: '0.4 0.4 0.4',
+        cameraOrbit: '45deg 60deg 1.5m'
+      },
+      {
+        id: 'arandela-fit10',
+        name: 'Arandela FIT10',
+        desc: 'Luminária de parede linear, delicada e expressiva',
+        specs: 'Bivolt 127-220V | 12W-40W | IRC>90 | 613-1531mm',
+        image: './images/arandela-fit10.jpg',
+        model: './luminaria.glb',
+        scale: '0.2 0.2 0.2',
+        cameraOrbit: '0deg 80deg 1m'
+      },
+      {
+        id: 'embutido-newpixel',
+        name: 'Embutido NewPixel',
+        desc: 'Spot embutido compacto, 1 a 3 focos com honeycomb',
+        specs: 'Bivolt 127-220V | 4W-12W | IRC>90 | UGR<13 | Direcionável',
+        image: './images/embutido-newpixel.jpg',
+        model: './embutido.glb',
+        scale: '0.1 0.1 0.1',
+        cameraOrbit: '0deg 60deg 0.8m'
+      },
+      {
+        id: 'embutido-cross',
+        name: 'Embutido Cross',
+        desc: 'Antiofuscamento extremo com facho cruzado, UGR<5',
+        specs: 'Bivolt 127-220V | 5W-12W | IRC>90 | UGR<5 | IP20',
+        image: './images/embutido-cross.jpg',
+        model: './embutido.glb',
+        scale: '0.1 0.1 0.1',
+        cameraOrbit: '0deg 60deg 0.8m'
+      },
+      {
+        id: 'embutido-comfort',
+        name: 'Embutido Comfort',
+        desc: 'IP44 para banheiros e áreas cobertas, lente ultra recuada',
+        specs: 'Bivolt 127-220V | 7W-15W | IRC>90 | UGR<13 | IP44',
+        image: './images/embutido-comfort.jpg',
+        model: './embutido.glb',
+        scale: '0.1 0.1 0.1',
+        cameraOrbit: '0deg 60deg 0.8m'
+      }
+    ];
+
+    // ── State ─────────────────────────────────────────────────────
+    let currentProductId = null;
+
+    function getProduct(id) {
+      return products.find(p => p.id === id);
+    }
+
+    // ── Navigation ────────────────────────────────────────────────
+    function setView(viewId) {
+      ['view-list', 'view-detail', 'view-ar'].forEach(v => {
+        document.getElementById(v).classList.remove('active');
+      });
+      document.getElementById(viewId).classList.add('active');
+      window.scrollTo(0, 0);
+    }
+
+    function showList() {
+      setView('view-list');
+      currentProductId = null;
+    }
+
+    function showDetail(productId) {
+      const p = getProduct(productId);
+      if (!p) return;
+      currentProductId = productId;
+
+      document.getElementById('detail-img').src = p.image;
+      document.getElementById('detail-img').alt = p.name;
+      document.getElementById('detail-name').textContent = p.name;
+
+      // Spec tags
+      const tagsEl = document.getElementById('detail-spec-tags');
+      tagsEl.innerHTML = '';
+      p.specs.split('|').forEach(spec => {
+        const tag = document.createElement('span');
+        tag.className = 'spec-tag';
+        tag.textContent = spec.trim();
+        tagsEl.appendChild(tag);
+      });
+
+      // Bind AR button
+      document.getElementById('btn-open-ar').onclick = () => showAR(productId);
+
+      setView('view-detail');
+    }
+
+    function showAR(productId) {
+      const p = getProduct(productId);
+      if (!p) return;
+      currentProductId = productId;
+
+      const mv = document.getElementById('mv');
+      mv.src = p.model;
+      mv.setAttribute('scale', p.scale);
+      mv.setAttribute('camera-orbit', p.cameraOrbit);
+
+      document.getElementById('ar-product-name').textContent = p.name;
+
+      setView('view-ar');
+    }
+
+    // ── AR trigger ────────────────────────────────────────────────
     function triggerAR() {
       const mv = document.getElementById('mv');
-
-      // Check if model-viewer AR is supported
       if (mv && mv.canActivateAR) {
         mv.activateAR();
       } else {
-        // Check if we're on mobile — maybe AR will work via model-viewer native button
-        const isMobile = /iPhone|iPad|Android/i.test(navigator.userAgent);
-        if (isMobile) {
-          // Try to activate via model-viewer slot button approach
-          const arButton = mv.shadowRoot && mv.shadowRoot.querySelector('[slot=ar-button], .ar-button');
-          if (arButton) {
-            arButton.click();
-          } else {
-            // AR not available on this device
-            document.getElementById('arModal').classList.add('active');
-          }
-        } else {
-          document.getElementById('arModal').classList.add('active');
-        }
+        document.getElementById('arModal').classList.add('active');
       }
     }
 
@@ -755,20 +848,36 @@
       document.getElementById('arModal').classList.remove('active');
     }
 
-    // Close modal on backdrop click
     document.getElementById('arModal').addEventListener('click', function(e) {
       if (e.target === this) closeArModal();
     });
 
-    // Show AR availability badge based on device
-    document.addEventListener('DOMContentLoaded', function() {
-      const mv = document.getElementById('mv');
-      if (mv) {
-        mv.addEventListener('ar-status', function(e) {
-          console.log('AR status:', e.detail.status);
-        });
-      }
-    });
+    // ── Render product grid ───────────────────────────────────────
+    function renderGrid() {
+      const grid = document.getElementById('product-grid');
+      grid.innerHTML = '';
+
+      products.forEach(p => {
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        card.innerHTML = `
+          <img class="card-img" src="${p.image}" alt="${p.name}" loading="lazy" />
+          <div class="card-body">
+            <div class="card-name">${p.name}</div>
+            <div class="card-desc">${p.desc}</div>
+            <button class="card-btn">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 7V4.5C3 3.12 4.12 2 5.5 2H8v2H5.5a.5.5 0 00-.5.5V7H3zm13-5h2.5C19.88 2 21 3.12 21 4.5V7h-2V4.5a.5.5 0 00-.5-.5H16V2zM3 17v2.5C3 20.88 4.12 22 5.5 22H8v-2H5.5a.5.5 0 01-.5-.5V17H3zm13 3v2h2.5c1.38 0 2.5-1.12 2.5-2.5V17h-2v2.5a.5.5 0 01-.5.5H16zM12 9l-4 4h3v4h2v-4h3l-4-4z"/></svg>
+              Ver no ambiente →
+            </button>
+          </div>
+        `;
+        card.addEventListener('click', () => showDetail(p.id));
+        grid.appendChild(card);
+      });
+    }
+
+    // ── Init ──────────────────────────────────────────────────────
+    renderGrid();
   </script>
 </body>
 </html>
